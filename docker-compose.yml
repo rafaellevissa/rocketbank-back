@@ -7,6 +7,7 @@ services:
       - 3333:3333
     depends_on:
       - mysql
+      - redis
   mysql:
     container_name: mysql
     image: mysql
@@ -17,5 +18,13 @@ services:
       - MYSQL_RANDOM_ROOT_PASSWORD='yes'
     volumes:
       - database:/var/lib/mysql
+  redis:
+    container_name: redis
+    image: redis:7.0-alpine
+    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis:/data
+
 volumes:
   database:
+  redis:
