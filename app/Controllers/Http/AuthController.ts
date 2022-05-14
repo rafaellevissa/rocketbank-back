@@ -22,4 +22,12 @@ export default class AuthController {
 
     return response.ok(token)
   }
+
+  public async logout({ auth, response }) {
+    await auth.use('api').revoke()
+    
+    return response.ok({
+      revoked: true
+    })
+  }
 }
