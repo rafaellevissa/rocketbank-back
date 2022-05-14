@@ -1,4 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { ModelPaginatorContract } from '@ioc:Adonis/Lucid/Orm'
 import Client from 'App/Models/Client'
 import CreateClientValidator from 'App/Validators/CreateClientValidator'
 import UpdateClientValidator from 'App/Validators/UpdateClientValidator'
@@ -6,10 +7,15 @@ import UpdateClientValidator from 'App/Validators/UpdateClientValidator'
 export default class ClientsController {
   /**
    * Return list of clients
-   * @returns Promise<Client[]>
+   * @returns Promise<ModelPaginatorContract<Client>>
    */
-  public async index(): Promise<Client[]> {
-    return Client.all()
+  public async index({ request }: HttpContextContract): Promise<ModelPaginatorContract<Client>> {
+    const { page, perPage } = request.qs()
+
+    return Client.query().paginate(
+      page || 1,
+      perPage || 2
+    )
   }
 
   /**

@@ -9,7 +9,9 @@ test.group('Clients list', async () => {
     const response = await client.get('clients').loginAs(user)
 
     response.assertStatus(200)
-    response.assertBody([])
+    response.assertBodyContains({
+      data: []
+    })
   })
 
   test('get a list of clients', async ({ client, assert }) => {
@@ -18,8 +20,8 @@ test.group('Clients list', async () => {
     const response = await client.get('clients').loginAs(user)
 
     response.assertStatus(200)
-    assert.isArray(response.body())
-    assert.lengthOf(response.body(), 10)
+    assert.isObject(response.body())
+    assert.isArray(response.body().data)
   })
 
   test('get a client by id', async ({ client }) => {
