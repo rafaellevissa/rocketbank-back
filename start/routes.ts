@@ -22,4 +22,7 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.post('login', 'AuthController.login')
 
-Route.resource('clients', 'ClientsController').apiOnly()
+Route.group(() => {
+  Route.resource('clients', 'ClientsController').apiOnly()
+}).middleware('auth')
+

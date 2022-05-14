@@ -6,8 +6,7 @@ export default class ClientsController {
    * Return list of clients
    * @returns App/Models/Client
    */
-  public async index({ auth }: HttpContextContract) {
-    await auth.authenticate()
+  public async index() {
     return User.all()
   }
 
