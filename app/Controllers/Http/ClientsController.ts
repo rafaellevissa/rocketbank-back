@@ -1,20 +1,67 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import User from 'App/Models/User' // TODO
+import Client from 'App/Models/Client'
 
 export default class ClientsController {
   /**
    * Return list of clients
-   * @returns App/Models/Client
+   * @returns Promise<Client[]>
    */
-  public async index() {
-    return User.all()
+  public async index(): Promise<Client[]> {
+    return Client.all()
   }
 
-  public async store({}: HttpContextContract) {}
+  /**
+   * Store a new instance of client
+   * @param request RequestContract
+   * @returns Promise<Client>
+   */
+  public async store({ request }: HttpContextContract): Promise<Client> {
+    const { name, birthdate, document } = request.all()
 
-  public async show({}: HttpContextContract) {}
+    return Client.create({
+      name,
+      birthdate,
+      document
+    })
+  }
 
-  public async update({}: HttpContextContract) {}
+  /**
+   * Find a client by its id
+   * @param params Record<string, any>
+   * @returns Promise<Client>
+   */
+  public async show({ params }: HttpContextContract): Promise<Client> {
+    return Client.findOrFail(params.id)
+  }
 
-  public async destroy({}: HttpContextContract) {}
+  /**
+   * Update a client by its id
+   * @param request RequestContract
+   * @param params Record<string, any>
+   * @returns Promise<Client>
+   */
+  public async update({ request, params }: HttpContextContract): Promise<Client> {
+    const { name, birthdate, document } = request.all()
+    
+    const client = await Client.findOrFail(params.id);
+
+    return client.merge({
+      name,
+      birthdate,
+      document
+    }).save()
+  }
+
+  /**
+   * Delete an instance of client by its id
+   * @param params Record<string, any>
+   * @returns Promise<Client>
+   */
+  public async destroy({ params }: HttpContextContract): Promise<Client> {
+    const client = await Client.findOrFail(params.id)
+
+    client.delete()
+
+    return client
+  }
 }
