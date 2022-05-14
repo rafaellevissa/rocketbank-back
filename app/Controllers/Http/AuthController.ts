@@ -6,8 +6,6 @@ export default class AuthController {
   public async login({ auth, request, response }: HttpContextContract) {
     const { email, password } = request.all()
 
-    console.log(request.all())
-
     const user = await User.findBy('email', email)
   
     if (!user) {
