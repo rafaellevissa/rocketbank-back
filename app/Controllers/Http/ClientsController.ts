@@ -14,7 +14,7 @@ export default class ClientsController {
 
     return Client.query().paginate(
       page || 1,
-      perPage || 2
+      perPage || 10
     )
   }
 

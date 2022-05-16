@@ -4,7 +4,7 @@ WORKDIR /api
 
 COPY package*.json ./
 
-RUN npm i --only=production
+RUN npm i
 
 COPY . ./
 
