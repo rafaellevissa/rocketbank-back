@@ -2,12 +2,12 @@
 
 This is a rest API made with `adonis`, the technologies used can be seen down bellow:
 
-|NAME|VERSION|
-|----|-------|
-|adonis| 5 |
-|redis | 7 |
-|mysql | latest |
-|typescript| 4
+| NAME       | VERSION |
+| ---------- | ------- |
+| adonis     | 5       |
+| redis      | 7       |
+| mysql      | latest  |
+| typescript | 4       |
 
 ### Usage
 
@@ -19,9 +19,17 @@ docker-compose up -d --build
 
 After that, you can look it running at `http://localhost:3333`.
 
+#### ADMIN USER:
+
+```
+email: admin@rocketbank.com
+password: 123Change@
+```
+
 ### Tests
 
-Before running the tests is necessary to install the node dependencies 
+Before running the tests is necessary to install the node dependencies
+
 ```
 npm i
 ```
