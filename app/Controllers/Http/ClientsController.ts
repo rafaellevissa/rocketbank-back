@@ -12,10 +12,7 @@ export default class ClientsController {
   public async index({ request }: HttpContextContract): Promise<ModelPaginatorContract<Client>> {
     const { page, perPage } = request.qs()
 
-    return Client.query().paginate(
-      page || 1,
-      perPage || 10
-    )
+    return Client.query().paginate(page || 1, perPage || 10)
   }
 
   /**
@@ -29,7 +26,7 @@ export default class ClientsController {
     return Client.create({
       name,
       birthdate,
-      document
+      document,
     })
   }
 
@@ -51,13 +48,15 @@ export default class ClientsController {
   public async update({ request, params }: HttpContextContract): Promise<Client> {
     const { name, birthdate, document } = await request.validate(UpdateClientValidator)
 
-    const client = await Client.findOrFail(params.id);
+    const client = await Client.findOrFail(params.id)
 
-    return client.merge({
-      name,
-      birthdate,
-      document
-    }).save()
+    return client
+      .merge({
+        name,
+        birthdate,
+        document,
+      })
+      .save()
   }
 
   /**
